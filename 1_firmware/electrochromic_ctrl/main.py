@@ -1,27 +1,29 @@
-import time
-import os
+import sys
+import select
+from lens_driver import ElectrochromicController
 
-LENS_PIN = int(os.environ.get("ELECTROCHROMIC_PIN", 18))
-PWM_FREQUENCY = 1000
+def listen_for_commands():
+    # Initialize lens hardware on GPIO pin 18
+    lens = ElectrochromicController(pin_num=18)
+    print("[FIRMWARE] Spectrum-Z0ne Hardware Layer Online.")
 
-def initialize_hardware():
-    print(f"Initializing Electrochromic Lens Controller on PIN {LENS_PIN}...")
-    return None
+    while True:
+        # Check for incoming commands over UART/Serial
+        if select.select([sys.stdin], [], [], 0.1)[0]:
+            command = sys.stdin.readline().strip()
 
-def set_tint_level(pwm, level):
-    duty_cycle = max(0.0, min(1.0, level)) * 100
-    print(f"Adjusting lens tint to {duty_cycle}%...")
-
-def main():
-    pwm = initialize_hardware()
-    print("Electrochromic Control Service Active. Listening for environmental light data...")
-    
-    try:
-        while True:
-            time.sleep(2)
-    except KeyboardInterrupt:
-        print("Shutting down Lens Controller...")
+            if command == "SHADE_ON":
+                lens.set_tint(90)
+            elif command == "SHADE_OFF":
+                lens.set_tint(0)
+            elif command == "SHADE_TOGGLE":
+                lens.toggle_sun_shade()
+            elif command.startswith("SHADE_SET:"):
+                try:
+                    val = int(command.split(":")[1])
+                    lens.set_tint(val)
+                except ValueError:
+                    print("[ERROR] Invalid tint format.")
 
 if __name__ == "__main__":
-    main()
-  
+    listen_for_commands()
