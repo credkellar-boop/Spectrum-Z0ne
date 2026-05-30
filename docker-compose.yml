@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  gemini-bridge:
+    build:
+      context: ./3_ai_services/gemini_bridge
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - spectrum-net
+
+  webrtc-streamer:
+    build:
+      context: ./2_companion_app/webrtc_streamer
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "50000-50050:50000-50050/udp"
+    devices:
+      - "/dev/video0:/dev/video0" # Maps local host hardware cameras/video feeds if prototyping on linux
+    restart: unless-stopped
+    networks:
+      - spectrum-net
+
+networks:
+  spectrum-net:
+    driver: bridge
