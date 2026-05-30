@@ -1,0 +1,55 @@
+name: Spectrum-Z0ne CI Pipeline
+
+# Trigger the workflow on pushes or pull requests targeting the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-ai-services:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Pull down the source code from the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Spin up a standardized runtime environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip' # Automatically caches packages to speed up future runs
+
+    # 3. Securely isolate and install required Python packages
+    - name: Install AI Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f 3_ai_services/gemini_bridge/requirements.txt ]; then 
+          pip install -r 3_ai_services/gemini_bridge/requirements.txt
+        fi
+
+    # 4. Verify syntax layout and check for structural errors
+    - name: Run Syntax Sanity Check
+      run: |
+        python -m py_compile 3_ai_services/gemini_bridge/main.py
+
+  verify-firmware:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # Firmware runs on microcontrollers; we verify syntax compatibility here
+    - name: Set up Python for Firmware Validation
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Lint Firmware Drivers
+      run: |
+        python -m py_compile 1_firmware/electrochromic_ctrl/lens_driver.py
+        python -m py_compile 1_firmware/display_driver/ssd1306_driver.py
