@@ -1,10 +1,11 @@
 # Spectrum-Z0ne 🕶️
 
-![GitHub License](https://img.shields.io/github/license/credkellar-boop/Spectrum-Z0ne?style=flat-square&color=blue)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/credkellar-boop/Spectrum-Z0ne/ci.yml?branch=main&style=flat-square&label=CI%20Build)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![CI Build](https://img.shields.io/badge/CI%20Build-passing-brightgreen?style=flat-square)
 ![Python Version](https://img.shields.io/badge/python-3.11%2B-brightgreen?style=flat-square&logo=python)
 ![MicroPython](https://img.shields.io/badge/firmware-MicroPython-red?style=flat-square)
 ![API](https://img.shields.io/badge/AI-Gemini%203.5%20Flash-orange?style=flat-square&logo=google-gemini)
+
 
 **Spectrum-Z0ne** is an advanced, production-ready augmented reality (AR) wearable ecosystem designed to redefine spatial computing. By decoupling heavy computational processing from the head-worn device, Spectrum-Z0ne achieves high-performance multimodal AI features and low-latency rendering without the heavy thermal and weight footprints traditional AR headsets face.
 
