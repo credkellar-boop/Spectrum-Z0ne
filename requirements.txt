@@ -1,2 +1,3 @@
-cd 3_ai_services/gemini_bridge
-nano requirements.txt
+google-genai==0.1.1
+pillow==10.3.0
+asyncio==3.4.3
