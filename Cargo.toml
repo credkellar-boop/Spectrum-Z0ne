@@ -1,9 +1,10 @@
 [package]
-name = "spectrum-z0ne"       # Must be unique on crates.io
-version = "0.1.7"            # Follow semantic versioning
+name = "spectrum-z0ne"            # Must be unique on crates.io
+version = "0.1.7"                 # Follow semantic versioning
 authors = ["Darion Kellar <credkellar@gmail.com>"]
 description = "Spectrum-Z0ne is an advanced, production-ready augmented reality (AR) wearable ecosystem designed to redefine spatial computing. By decoupling heavy computational processing from the head-worn device, Spectrum-Z0ne achieves high-performance multimodal AI features and low-latency rendering without the heavy thermal and weight footprints traditional AR headsets face."
-license = "MIT"              # Or another SPDX identifier
+
+license = "MIT"                   # Or another SPDX identifier
 edition = "2021"
-readme = "README.md"         # Points to your readme file
-repository = "[https://github.com/credkellar-boop/Spectrum-Z0ne](https://github.com/credkellar-boop/Spectrum-Z0ne)" # Recommended
+readme = "README.md"              # Points to your readme file
+repository = "https://github.com/credkellar-boop/Spectrum-Z0ne" # Recommended
