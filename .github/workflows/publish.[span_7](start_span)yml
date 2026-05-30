@@ -1,0 +1,17 @@
+name: Publish to crates.io
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers when you push a version tag
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC token exchange
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Publish to crates.io
+        run: cargo publish
