@@ -1,29 +1,25 @@
-version: '3.8'
-
 services:
-  gemini-bridge:
-    build:
-      context: ./3_ai_services/gemini_bridge
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    restart: unless-stopped
-    networks:
-      - spectrum-net
-
-  webrtc-streamer:
-    build:
-      context: ./2_companion_app/webrtc_streamer
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-      - "50000-50050:50000-50050/udp"
+  ai-bridge:
+    build: ./ai_service
+    container_name: spectrum_ai_engine
+    restart: always
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./ai_service:/app
+      - /dev:/dev  # Access to hardware devices
     devices:
-      - "/dev/video0:/dev/video0" # Maps local host hardware cameras/video feeds if prototyping on linux
-    restart: unless-stopped
-    networks:
-      - spectrum-net
+      - "/dev/gpiomem:/dev/gpiomem"
+      - "/dev/i2c-1:/dev/i2c-1"
+    privileged: true # Required for hardware control
 
-networks:
-  spectrum-net:
-    driver: bridge
+  hardware-ctrl:
+    build: ./1_firmware
+    container_name: spectrum_hardware_ctrl
+    restart: always
+    volumes:
+      - ./1_firmware:/app
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+      - "/dev/i2c-1:/dev/i2c-1"
+    privileged: true
