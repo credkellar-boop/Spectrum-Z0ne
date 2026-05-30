@@ -23,3 +23,11 @@ services:
       - "/dev/gpiomem:/dev/gpiomem"
       - "/dev/i2c-1:/dev/i2c-1"
     privileged: true
+  webrtc-streamer:
+    build: ./webrtc_streamer
+    container_name: spectrum_webrtc_streamer
+    network_mode: host # Critical for WebRTC streaming performance
+    privileged: true
+    volumes:
+      - ./webrtc_streamer:/app
+      
