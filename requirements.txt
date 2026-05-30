@@ -1,0 +1,2 @@
+cd 3_ai_services/gemini_bridge
+nano requirements.txt
