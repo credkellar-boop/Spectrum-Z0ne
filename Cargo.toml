@@ -1,10 +1,8 @@
 [package]
-name = "spectrum-z0ne" 
+name = "spectrum-z0ne"
 version = "0.1.5"
 authors = ["Darion Kellar <credkellar@gmail.com>"]
 description = "A next-generation AR wearable redefining spatial computing."
-license = "MIT" # Or your preferred license
+license = "MIT"
 edition = "2021"
-
-[dependencies]
-# List your dependencies here
+readme = "README.md"
